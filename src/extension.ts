@@ -3,7 +3,7 @@ import { exec } from 'child_process';
 
 export function activate(context: vscode.ExtensionContext) {
 	// Comando para crear una migración
-    let disposableMigration = vscode.commands.registerCommand('larawizard.createMigration', () => {
+    const disposableMigration = vscode.commands.registerCommand('larawizard.createMigration', () => {
         vscode.window.showInputBox({ prompt: 'Nombre de la migración' }).then((migrationName) => {
             if (migrationName) {
                 exec(`php artisan make:migration ${migrationName}`, (error, stdout, stderr) => {
@@ -18,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     // Comando para crear un controlador
-    let disposableController = vscode.commands.registerCommand('larawizard.createController', () => {
+    const disposableController = vscode.commands.registerCommand('larawizard.createController', () => {
         vscode.window.showInputBox({ prompt: 'Nombre del controlador' }).then((controllerName) => {
             if (controllerName) {
                 exec(`php artisan make:controller ${controllerName}`, (error, stdout, stderr) => {
