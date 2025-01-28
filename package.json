@@ -14,8 +14,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "larawizard.helloWorld",
-        "title": "Hello World"
+        "command": "larawizard.createMigration",
+        "title": "Create Migration"
+      },
+      {
+        "command": "larawizard.createController",
+        "title": "Create Controller"
       }
     ]
   },
