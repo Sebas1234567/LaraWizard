@@ -21,19 +21,6 @@
             "type": "npm",
             "script": "watch:esbuild",
             "group": "build",
-            "problemMatcher": {
-                "owner": "typescript",
-                "applyTo": "allDocuments",
-                "fileLocation": ["relative", "${workspaceFolder}"],
-                "pattern": {
-                    "regexp": "^\\[(.*?)\\] (.*?): (.*?):(\\d+):(\\d+) - (error|warning) (TS\\d+): (.*)$",
-                    "file": 2,
-                    "location": 4,
-                    "severity": 6,
-                    "code": 7,
-                    "message": 8
-                }
-            },
             "isBackground": true,
             "label": "npm: watch:esbuild",
             "presentation": {
