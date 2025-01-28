@@ -1,26 +1,40 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { exec } from 'child_process';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+	// Comando para crear una migración
+    let disposableMigration = vscode.commands.registerCommand('larawizard.createMigration', () => {
+        vscode.window.showInputBox({ prompt: 'Nombre de la migración' }).then((migrationName) => {
+            if (migrationName) {
+                exec(`php artisan make:migration ${migrationName}`, (error, stdout, stderr) => {
+                    if (error) {
+                        vscode.window.showErrorMessage(`Error: ${stderr}`);
+                    } else {
+                        vscode.window.showInformationMessage(`Migración creada: ${migrationName}`);
+                    }
+                });
+            }
+        });
+    });
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "larawizard" is now active!');
+    // Comando para crear un controlador
+    let disposableController = vscode.commands.registerCommand('larawizard.createController', () => {
+        vscode.window.showInputBox({ prompt: 'Nombre del controlador' }).then((controllerName) => {
+            if (controllerName) {
+                exec(`php artisan make:controller ${controllerName}`, (error, stdout, stderr) => {
+                    if (error) {
+                        vscode.window.showErrorMessage(`Error: ${stderr}`);
+                    } else {
+                        vscode.window.showInformationMessage(`Controlador creado: ${controllerName}`);
+                    }
+                });
+            }
+        });
+    });
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('larawizard.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from LaraWizard!');
-	});
-
-	context.subscriptions.push(disposable);
+    // Registrar los comandos en el contexto de la extensión
+    context.subscriptions.push(disposableMigration);
+    context.subscriptions.push(disposableController);
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}

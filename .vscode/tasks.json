@@ -6,7 +6,7 @@
 		{
             "label": "watch",
             "dependsOn": [
-                "npm: watch:esbuild"
+                "npm: watch:tsc"
             ],
             "presentation": {
                 "reveal": "never"
