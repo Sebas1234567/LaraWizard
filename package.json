@@ -12,23 +12,90 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "larawizard-sidebar",
+          "title": "LaraWizard",
+          "icon": "resources/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "larawizard-sidebar": [
+        {
+          "id": "larawizard-models",
+          "name": "Modelos",
+          "contextualTitle": "Modelos",
+          "when": "true"
+        },
+        {
+          "id": "larawizard-requests",
+          "name": "Requests",
+          "contextualTitle": "Requests",
+          "when": "true"
+        },
+        {
+          "id": "larawizard-controllers",
+          "name": "Controladores",
+          "contextualTitle": "Controladores",
+          "when": "true"
+        }
+      ]
+    },
     "commands": [
       {
-        "command": "larawizard.createMigration",
-        "title": "Create Migration"
+        "command": "larawizard.createModel",
+        "title": "Crear Modelo",
+        "icon": "$(plus)"
+      },
+      {
+        "command": "larawizard.createRequest",
+        "title": "Crear Request",
+        "icon": "$(plus)"
       },
       {
         "command": "larawizard.createController",
-        "title": "Create Controller"
+        "title": "Crear Controlador",
+        "icon": "$(plus)"
+      },
+      {
+        "command": "larawizard.createAll",
+        "title": "Crear Todos",
+        "icon": "$(add)"
       }
-    ]
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "larawizard.createAll",
+          "when": "view == larawizard-sidebar",
+          "group": "navigation"
+        },
+        {
+          "command": "larawizard.createModel",
+          "when": "view == larawizard-models",
+          "group": "navigation"
+        },
+        {
+          "command": "larawizard.createRequest",
+          "when": "view == larawizard-requests",
+          "group": "navigation"
+        },
+        {
+          "command": "larawizard.createController",
+          "when": "view == larawizard-controllers",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "npm run check-types && npm run lint && node esbuild.js",
     "watch": "npm-run-all -p watch:*",
     "watch:esbuild": "node esbuild.js --watch",
-    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "watch:tsc": "npx tsc && tsc --noEmit --watch --project tsconfig.json",
     "package": "npm run check-types && npm run lint && node esbuild.js --production",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
